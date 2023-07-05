@@ -1,17 +1,57 @@
 <template>
   <div class="container">
-    <Header title="Task Tracker" />
+    <Header title="Трекер Задач"/>
+    <Tasks @toggle-reminder="toggleReminder" @delete-task="deleteTask" :tasks="tasks"/>
   </div>
 </template>
 
 <script>
 import Header from "./components/Header";
+import Tasks from "./components/Tasks";
 
 export default {
   name: "App",
   components: {
     Header,
+    Tasks,
   },
+  data() {
+    return {
+      tasks: []
+    }
+  },
+  methods: {
+    deleteTask(id) {
+      this.tasks = this.tasks.filter((task) => task.id !== id)
+      console.log('task',id);
+    },
+    toggleReminder(id) {
+      this.tasks = this.tasks.map((task) => task.id === id ? {...task, reminder: !task.reminder} : task)
+      console.log('toggle',id);
+    }
+  },
+  created(){
+    this.tasks = [
+      {
+        id: 1,
+        text: "Сделать роуты",
+        day: '5 июля в 23:00',
+        reminder: true
+      },
+      {
+        id: 2,
+        text: "Почитать доку",
+        day: '6 июля в 00:00',
+        reminder: true
+      },
+      {
+        id: 3,
+        text: "Посмотреть про Vuex",
+        day: '7 июля в 10:00',
+        reminder: false
+      }
+    ]
+  }
 };
 </script>
 

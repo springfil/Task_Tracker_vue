@@ -1,7 +1,7 @@
 <template>
   <header>
     <h1>{{ title }}</h1>
-    <Button text="Add Task" color="purple" />
+    <Button text="Добавить" color="purple" />
     <!-- <Button text = 'Zopa' color = 'purple'/>
         <Button text = 'Nani' color = 'blue'/> -->
   </header>
