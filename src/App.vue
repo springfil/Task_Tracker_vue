@@ -1,22 +1,22 @@
 <template>
   <div class="container">
-  <Header title = "Task Tracker"/>
+    <Header title="Task Tracker" />
   </div>
 </template>
 
 <script>
-import Header from './components/Header'
+import Header from "./components/Header";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    Header
+    Header,
   },
-}
+};
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
 
 * {
   box-sizing: border-box;
@@ -25,7 +25,7 @@ export default {
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .container {
