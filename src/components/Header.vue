@@ -1,7 +1,7 @@
 <template>
   <header>
     <h1>{{ title }}</h1>
-    <Button @toggle-add-task="$emit('toggle-add-task')" :text="showAddTask ? 'Свернуть' : 'Добавить' " color="purple" />
+    <Button @btn-click="$emit('toggle-add-task')" :text="showAddTask ? 'Свернуть' : 'Добавить' " color="purple" />
     <!-- <Button text = 'Zopa' color = 'purple'/>
         <Button text = 'Nani' color = 'blue'/> -->
   </header>
