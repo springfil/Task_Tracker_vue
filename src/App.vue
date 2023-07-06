@@ -1,57 +1,73 @@
 <template>
   <div class="container">
-    <Header title="Трекер Задач"/>
-    <Tasks @toggle-reminder="toggleReminder" @delete-task="deleteTask" :tasks="tasks"/>
+    <Header title="Трекер Задач" />
+    <AddTask @add-task="addTask"/>
+    <Tasks
+      @toggle-reminder="toggleReminder"
+      @delete-task="deleteTask"
+      :tasks="tasks"
+    />
   </div>
 </template>
 
 <script>
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
+import AddTask from "./components/AddTask";
 
 export default {
   name: "App",
   components: {
     Header,
     Tasks,
+    AddTask
   },
   data() {
     return {
-      tasks: []
-    }
+      tasks: [],
+    };
   },
   methods: {
+    addTask(task) {
+      this.tasks = [...this.tasks, task]
+    },
     deleteTask(id) {
-      this.tasks = this.tasks.filter((task) => task.id !== id)
-      console.log('task',id);
+      this.tasks = this.tasks.filter((task) => task.id !== id);
+      // console.log("task", id);
     },
     toggleReminder(id) {
-      this.tasks = this.tasks.map((task) => task.id === id ? {...task, reminder: !task.reminder} : task)
-      console.log('toggle',id);
-    }
+      // this.tasks = this.tasks.map((task) => task.id === id ? {...task, reminder: !task.reminder} : task)
+      for (let i = 0; i < this.tasks.length; i++) {
+        if (this.tasks[i].id === id) {
+          this.tasks[i].reminder = !this.tasks[i].reminder;
+          break;
+        }
+      }
+      // console.log("toggle", id);
+    },
   },
-  created(){
+  created() {
     this.tasks = [
       {
         id: 1,
         text: "Сделать роуты",
-        day: '5 июля в 23:00',
-        reminder: true
+        day: "5 июля в 23:00",
+        reminder: true,
       },
       {
         id: 2,
         text: "Почитать доку",
-        day: '6 июля в 00:00',
-        reminder: true
+        day: "6 июля в 00:00",
+        reminder: true,
       },
       {
         id: 3,
         text: "Посмотреть про Vuex",
-        day: '7 июля в 10:00',
-        reminder: false
-      }
-    ]
-  }
+        day: "7 июля в 10:00",
+        reminder: false,
+      },
+    ];
+  },
 };
 </script>
 
