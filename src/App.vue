@@ -1,10 +1,14 @@
 <template>
   <div class="container">
-    <Header @toggle-add-task="toggleAddTask" title="Трекер Задач" :showAddTask="showAddTask" />
+    <my-header
+      @toggle-add-task="toggleAddTask"
+      title="Трекер Задач"
+      :showAddTask="showAddTask"
+    />
     <div v-show="showAddTask">
-      <AddTask @add-task="addTask"/>
+      <my-add-task @add-task="addTask" />
     </div>
-    <Tasks
+    <my-tasks
       @toggle-reminder="toggleReminder"
       @delete-task="deleteTask"
       :tasks="tasks"
@@ -12,69 +16,110 @@
   </div>
 </template>
 
-<script>
-import Header from "./components/Header";
-import Tasks from "./components/Tasks";
-import AddTask from "./components/AddTask";
+<script setup>
+import MyHeader from "./components/Header";
+import MyTasks from "./components/Tasks";
+import MyAddTask from "./components/AddTask";
+import { ref } from "vue";
 
-export default {
-  name: "App",
-  components: {
-    Header,
-    Tasks,
-    AddTask
+const tasks = ref([
+  {
+    id: 1,
+    text: "Сделать роуты",
+    day: "5 июля в 23:00",
+    reminder: true,
   },
-  data() {
-    return {
-      tasks: [],
-      showAddTask: false,
-    };
+  {
+    id: 2,
+    text: "Почитать доку",
+    day: "6 июля в 00:00",
+    reminder: true,
   },
-  methods: {
-    toggleAddTask() {
-      this.showAddTask = !this.showAddTask
-    },
-    addTask(task) {
-      this.tasks = [...this.tasks, task]
-    },
-    deleteTask(id) {
-      this.tasks = this.tasks.filter((task) => task.id !== id);
-      // console.log("task", id);
-    },
-    toggleReminder(id) {
-      // this.tasks = this.tasks.map((task) => task.id === id ? {...task, reminder: !task.reminder} : task)
-      for (let i = 0; i < this.tasks.length; i++) {
-        if (this.tasks[i].id === id) {
-          this.tasks[i].reminder = !this.tasks[i].reminder;
-          break;
-        }
-      }
-      // console.log("toggle", id);
-    },
+  {
+    id: 3,
+    text: "Посмотреть про Vuex",
+    day: "7 июля в 10:00",
+    reminder: false,
   },
-  created() {
-    this.tasks = [
-      {
-        id: 1,
-        text: "Сделать роуты",
-        day: "5 июля в 23:00",
-        reminder: true,
-      },
-      {
-        id: 2,
-        text: "Почитать доку",
-        day: "6 июля в 00:00",
-        reminder: true,
-      },
-      {
-        id: 3,
-        text: "Посмотреть про Vuex",
-        day: "7 июля в 10:00",
-        reminder: false,
-      },
-    ];
-  },
-};
+]);
+const showAddTask = ref(false);
+// export default {
+//   name: "App",
+//   components: {
+//     Header,
+//     Tasks,
+//     AddTask
+//   },
+// data() {
+//   return {
+//     tasks: [],
+//     showAddTask: false,
+//   };
+// },
+
+function toggleAddTask() {
+  showAddTask.value = !showAddTask.value;
+}
+
+function addTask(task) {
+  tasks.value.push(task);
+}
+
+function deleteTask(id) {
+  // this.tasks = this.tasks.filter((task) => task.id !== id);
+  tasks.value = tasks.value.filter((task) => task.id !== id);
+}
+
+function toggleReminder(id) {
+  for (let i = 0; i < tasks.value.length; i++) {
+    if (tasks.value[i].id === id) {
+      tasks.value[i].reminder = !tasks.value[i].reminder;
+      break;
+    }
+  }
+}
+// methods: {
+//   toggleAddTask() {
+//     this.showAddTask = !this.showAddTask
+//   },
+//   addTask(task) {
+//     this.tasks = [...this.tasks, task]
+//   },
+//   deleteTask(id) {
+//     this.tasks = this.tasks.filter((task) => task.id !== id);
+//     // console.log("task", id);
+//   },
+//   toggleReminder(id) {
+//     // this.tasks = this.tasks.map((task) => task.id === id ? {...task, reminder: !task.reminder} : task)
+//     for (let i = 0; i < this.tasks.length; i++) {
+//       if (this.tasks[i].id === id) {
+//         this.tasks[i].reminder = !this.tasks[i].reminder;
+//         break;
+//       }
+//     }
+//     // console.log("toggle", id);
+//   },
+// },
+// tasks.value = [
+//   {
+//     id: 1,
+//     text: "Сделать роуты",
+//     day: "5 июля в 23:00",
+//     reminder: true,
+//   },
+//   {
+//     id: 2,
+//     text: "Почитать доку",
+//     day: "6 июля в 00:00",
+//     reminder: true,
+//   },
+//   {
+//     id: 3,
+//     text: "Посмотреть про Vuex",
+//     day: "7 июля в 10:00",
+//     reminder: false,
+//   },
+// ];
 </script>
 
 <style>
