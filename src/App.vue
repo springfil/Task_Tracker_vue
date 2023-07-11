@@ -20,106 +20,73 @@
 import MyHeader from "./components/Header";
 import MyTasks from "./components/Tasks";
 import MyAddTask from "./components/AddTask";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 
-const tasks = ref([
-  {
-    id: 1,
-    text: "Сделать роуты",
-    day: "5 июля в 23:00",
-    reminder: true,
-  },
-  {
-    id: 2,
-    text: "Почитать доку",
-    day: "6 июля в 00:00",
-    reminder: true,
-  },
-  {
-    id: 3,
-    text: "Посмотреть про Vuex",
-    day: "7 июля в 10:00",
-    reminder: false,
-  },
-]);
+const tasks = ref([]);
+
+async function fetchTasks() {
+  const res = await fetch("api/tasks");
+  const data = await res.json();
+  return data;
+}
+
+onMounted(async () => {
+  tasks.value = await fetchTasks();
+  // await fetchTask();
+});
+
+async function fetchTask(id) {
+  const res = await fetch(`api/tasks/${id}`);
+  const data = await res.json();
+  console.log(data);
+  return data;
+}
+
 const showAddTask = ref(false);
-// export default {
-//   name: "App",
-//   components: {
-//     Header,
-//     Tasks,
-//     AddTask
-//   },
-// data() {
-//   return {
-//     tasks: [],
-//     showAddTask: false,
-//   };
-// },
 
 function toggleAddTask() {
   showAddTask.value = !showAddTask.value;
 }
 
-function addTask(task) {
-  tasks.value.push(task);
+async function addTask(task) {
+  const res = await fetch("api/tasks", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify(task),
+  });
+  const data = await res.json();
+  tasks.value.push(data);
 }
 
-function deleteTask(id) {
-  // this.tasks = this.tasks.filter((task) => task.id !== id);
-  tasks.value = tasks.value.filter((task) => task.id !== id);
+async function deleteTask(id) {
+  const res = await fetch(`api/tasks/${id}`, {
+    method: "DELETE",
+  });
+  res.status === 200
+    ? (tasks.value = tasks.value.filter((task) => task.id !== id))
+    : alert("Error deleting");
 }
 
-function toggleReminder(id) {
-  for (let i = 0; i < tasks.value.length; i++) {
-    if (tasks.value[i].id === id) {
-      tasks.value[i].reminder = !tasks.value[i].reminder;
-      break;
-    }
-  }
+async function toggleReminder(id) {
+  const taskToToggle = await fetchTask(id);
+  const updateTask = { ...taskToToggle, reminder: !taskToToggle.reminder };
+
+  const res = await fetch(`api/tasks/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify(updateTask),
+  });
+
+  const data = await res.json();
+
+  tasks.value = tasks.value.map((task) =>
+    task.id === id ? { ...task, reminder: data.reminder } : task
+  );
 }
-// methods: {
-//   toggleAddTask() {
-//     this.showAddTask = !this.showAddTask
-//   },
-//   addTask(task) {
-//     this.tasks = [...this.tasks, task]
-//   },
-//   deleteTask(id) {
-//     this.tasks = this.tasks.filter((task) => task.id !== id);
-//     // console.log("task", id);
-//   },
-//   toggleReminder(id) {
-//     // this.tasks = this.tasks.map((task) => task.id === id ? {...task, reminder: !task.reminder} : task)
-//     for (let i = 0; i < this.tasks.length; i++) {
-//       if (this.tasks[i].id === id) {
-//         this.tasks[i].reminder = !this.tasks[i].reminder;
-//         break;
-//       }
-//     }
-//     // console.log("toggle", id);
-//   },
-// },
-// tasks.value = [
-//   {
-//     id: 1,
-//     text: "Сделать роуты",
-//     day: "5 июля в 23:00",
-//     reminder: true,
-//   },
-//   {
-//     id: 2,
-//     text: "Почитать доку",
-//     day: "6 июля в 00:00",
-//     reminder: true,
-//   },
-//   {
-//     id: 3,
-//     text: "Посмотреть про Vuex",
-//     day: "7 июля в 10:00",
-//     reminder: false,
-//   },
-// ];
 </script>
 
 <style>
