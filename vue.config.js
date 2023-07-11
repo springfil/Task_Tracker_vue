@@ -2,7 +2,7 @@ module.exports = {
   devServer: {
     proxy: {
       "^/api": {
-        target: "https://your-username.github.io/Task_Tracker_vue",
+        target: "http://localhost:5000",
         changeOrigin: true,
         logLevel: "debug",
         pathRewrite: { "^/api": "/" },
