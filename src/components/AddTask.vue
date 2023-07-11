@@ -22,38 +22,34 @@
   </form>
 </template>
 
-<script>
-export default {
-  name: "AddTask",
-  data() {
-    return {
-      text: "",
-      day: "",
-      reminder: false,
-    };
-  },
-  methods: {
-    onSubmit(e) {
-      e.preventDefault();
+<script setup>
+import { ref } from "vue";
 
-      if (!this.text) {
-        alert("Пожалуйста добавьте задание");
-        return;
-      }
+const text = ref("");
+const day = ref("");
+const reminder = ref(false);
 
-      const newTask = {
-        text: this.text,
-        day: this.day,
-        reminder: this.reminder,
-      };
+const emit = defineEmits(["add-task"]);
 
-      this.$emit("add-task", newTask);
+const onSubmit = (e) => {
+  e.preventDefault();
 
-      this.text = "";
-      this.day = "";
-      this.reminder = false;
-    },
-  },
+  if (!text.value) {
+    alert("Пожалуйста добавьте задание");
+    return;
+  }
+
+  const newTask = {
+    text: text.value,
+    day: day.value,
+    reminder: reminder.value,
+  };
+
+  emit("add-task", newTask);
+
+  text.value = "";
+  day.value = "";
+  reminder.value = false;
 };
 </script>
 

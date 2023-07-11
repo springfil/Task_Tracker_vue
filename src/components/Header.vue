@@ -9,22 +9,18 @@
   </header>
 </template>
 
-<script>
+<script setup>
 import Button from "./Button";
 
-export default {
-  name: "Header",
-  props: {
-    title: {
-      type: String,
-      default: "Interesting button",
-    },
-    showAddTask: Boolean,
+const props = defineProps({
+  title: {
+    type: String,
+    default: "Interesting button",
   },
-  components: {
-    Button,
-  },
-};
+  showAddTask: Boolean,
+});
+
+const emit = defineEmits(["toggle-add-task"]);
 </script>
 
 <style scoped>

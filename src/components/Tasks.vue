@@ -1,24 +1,27 @@
 <template>
   <div :key="task.id" v-for="task in tasks">
     <Task
-      @toggle-reminder="$emit('toggle-reminder', task.id)"
-      @delete-task="$emit('delete-task', task.id)"
+      @toggle-reminder="handleToggleReminder(task.id)"
+      @delete-task="handleDeleteTask(task.id)"
       :task="task"
     />
   </div>
 </template>
 
-<script>
+<script setup>
 import Task from "./Task";
 
-export default {
-  name: "Tasks",
-  props: {
-    tasks: Array,
-  },
-  components: {
-    Task,
-  },
-  emits: ["delete-task", "toggle-reminder"],
+const props = defineProps({
+  tasks: Array,
+});
+
+const emit = defineEmits(["toggle-reminder", "delete-task"]);
+
+const handleToggleReminder = (id) => {
+  emit("toggle-reminder", id);
+};
+
+const handleDeleteTask = (id) => {
+  emit("delete-task", id);
 };
 </script>
