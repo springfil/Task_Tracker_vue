@@ -1,13 +1,3 @@
-<template>
-  <div :key="task.id" v-for="task in tasks">
-    <Task
-      @toggle-reminder="handleToggleReminder(task.id)"
-      @delete-task="handleDeleteTask(task.id)"
-      :task="task"
-    />
-  </div>
-</template>
-
 <script setup>
 import Task from "./Task";
 
@@ -25,3 +15,13 @@ const handleDeleteTask = (id) => {
   emit("delete-task", id);
 };
 </script>
+
+<template>
+  <div :key="task.id" v-for="task in tasks">
+    <Task
+      @toggle-reminder="handleToggleReminder(task.id)"
+      @delete-task="handleDeleteTask(task.id)"
+      :task="task"
+    />
+  </div>
+</template>

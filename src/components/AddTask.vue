@@ -1,27 +1,3 @@
-<template>
-  <form @submit="onSubmit" class="add-form">
-    <div class="form-control">
-      <label>Задание</label>
-      <input
-        type="text"
-        v-model="text"
-        name="text"
-        placeholder="Напишите задание"
-      />
-    </div>
-    <div class="form-control">
-      <label>День & Время</label>
-      <input type="text" v-model="day" name="day" placeholder="Введите дату" />
-    </div>
-    <div class="form-control form-control-check">
-      <label>Установить напоминание</label>
-      <input type="checkbox" v-model="reminder" name="reminder" />
-    </div>
-
-    <input type="submit" value="Сохранить" class="btn btn-block" />
-  </form>
-</template>
-
 <script setup>
 import { ref } from "vue";
 
@@ -52,6 +28,30 @@ const onSubmit = (e) => {
   reminder.value = false;
 };
 </script>
+
+<template>
+  <form @submit="onSubmit" class="add-form">
+    <div class="form-control">
+      <label>Задание</label>
+      <input
+        type="text"
+        v-model="text"
+        name="text"
+        placeholder="Напишите задание"
+      />
+    </div>
+    <div class="form-control">
+      <label>День & Время</label>
+      <input type="text" v-model="day" name="day" placeholder="Введите дату" />
+    </div>
+    <div class="form-control form-control-check">
+      <label>Установить напоминание</label>
+      <input type="checkbox" v-model="reminder" name="reminder" />
+    </div>
+
+    <input type="submit" value="Сохранить" class="btn btn-block" />
+  </form>
+</template>
 
 <style scoped>
 .add-form {

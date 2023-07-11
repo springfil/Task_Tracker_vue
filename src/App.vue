@@ -1,21 +1,3 @@
-<template>
-  <div class="container">
-    <my-header
-      @toggle-add-task="toggleAddTask"
-      title="Трекер Задач"
-      :showAddTask="showAddTask"
-    />
-    <div v-show="showAddTask">
-      <my-add-task @add-task="addTask" />
-    </div>
-    <my-tasks
-      @toggle-reminder="toggleReminder"
-      @delete-task="deleteTask"
-      :tasks="tasks"
-    />
-  </div>
-</template>
-
 <script setup>
 import MyHeader from "./components/Header";
 import MyTasks from "./components/Tasks";
@@ -88,6 +70,24 @@ async function toggleReminder(id) {
   );
 }
 </script>
+
+<template>
+  <div class="container">
+    <my-header
+      @toggle-add-task="toggleAddTask"
+      title="Трекер Задач"
+      :showAddTask="showAddTask"
+    />
+    <div v-show="showAddTask">
+      <my-add-task @add-task="addTask" />
+    </div>
+    <my-tasks
+      @toggle-reminder="toggleReminder"
+      @delete-task="deleteTask"
+      :tasks="tasks"
+    />
+  </div>
+</template>
 
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");

@@ -1,16 +1,3 @@
-<template>
-  <div
-    @dblclick="handleToggleReminder(task.id)"
-    :class="[task.reminder ? 'reminder' : '', 'task']"
-  >
-    <h3>
-      {{ task.text }}
-      <i @click="handleDelete(task.id)" class="fas fa-times"></i>
-    </h3>
-    <p>{{ task.day }}</p>
-  </div>
-</template>
-
 <script setup>
 const props = defineProps({
   task: Object,
@@ -26,6 +13,19 @@ const handleToggleReminder = (id) => {
   emit("toggle-reminder", id);
 };
 </script>
+
+<template>
+  <div
+    @dblclick="handleToggleReminder(task.id)"
+    :class="[task.reminder ? 'reminder' : '', 'task']"
+  >
+    <h3>
+      {{ task.text }}
+      <i @click="handleDelete(task.id)" class="fas fa-times"></i>
+    </h3>
+    <p>{{ task.day }}</p>
+  </div>
+</template>
 
 <style scope>
 .fas {

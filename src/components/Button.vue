@@ -1,10 +1,3 @@
-<template>
-  <button @click="$emit('btn-click')" :style="{ background: color }" class="btn">
-    {{ text }}
-  </button>
-</template>
-
-
 <script setup>
 import { ref } from "vue";
 
@@ -17,9 +10,18 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["btn-click"])
-  
+const emit = defineEmits(["btn-click"]);
 </script>
+
+<template>
+  <button
+    @click="$emit('btn-click')"
+    :style="{ background: color }"
+    class="btn"
+  >
+    {{ text }}
+  </button>
+</template>
 
 <!-- <script>
 export default {
