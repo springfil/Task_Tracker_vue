@@ -1,9 +1,11 @@
 <template>
   <header>
     <h1>{{ title }}</h1>
-    <Button @btn-click="$emit('toggle-add-task')" :text="showAddTask ? 'Свернуть' : 'Добавить' " color="purple" />
-    <!-- <Button text = 'Zopa' color = 'purple'/>
-        <Button text = 'Nani' color = 'blue'/> -->
+    <Button
+      @btn-click="$emit('toggle-add-task')"
+      :text="showAddTask ? 'Свернуть' : 'Добавить'"
+      color="purple"
+    />
   </header>
 </template>
 
