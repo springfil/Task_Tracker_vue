@@ -1,4 +1,5 @@
 module.exports = {
+  publicPath: '/Task_Tracker_vue/',
   devServer: {
     proxy: {
       '^/api': {
