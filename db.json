@@ -3,8 +3,20 @@
     {
       "text": "глянуть Pinia ",
       "day": "11.07 20:20",
-      "reminder": false,
+      "reminder": true,
       "id": 1
+    },
+    {
+      "text": "asd",
+      "day": "asd",
+      "reminder": true,
+      "id": 2
+    },
+    {
+      "text": "asdas",
+      "day": "dasd",
+      "reminder": false,
+      "id": 3
     }
   ]
 }
