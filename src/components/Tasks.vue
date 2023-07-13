@@ -1,18 +1,18 @@
 <script setup>
-import Task from "./Task";
+import Task from './Task';
 
-const props = defineProps({
+defineProps({
   tasks: Array,
 });
 
-const emit = defineEmits(["toggle-reminder", "delete-task"]);
+const emit = defineEmits(['toggle-reminder', 'delete-task']);
 
 const handleToggleReminder = (id) => {
-  emit("toggle-reminder", id);
+  emit('toggle-reminder', id);
 };
 
 const handleDeleteTask = (id) => {
-  emit("delete-task", id);
+  emit('delete-task', id);
 };
 </script>
 

@@ -1,7 +1,5 @@
 <script setup>
-import { ref } from "vue";
-
-const props = defineProps({
+defineProps({
   text: {
     type: String,
   },
@@ -10,7 +8,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["btn-click"]);
+defineEmits(['btn-click']);
 </script>
 
 <template>
@@ -22,18 +20,3 @@ const emit = defineEmits(["btn-click"]);
     {{ text }}
   </button>
 </template>
-
-<!-- <script>
-export default {
-  name: "Button",
-  props: {
-    text: String,
-    color: String,
-  },
-  methods: {
-    onClick() {
-      this.$emit("btn-click");
-    },
-  },
-};
-</script> -->

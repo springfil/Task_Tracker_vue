@@ -1,15 +1,16 @@
 <script setup>
-import Button from "./Button";
+import Button from './Button';
 
-const props = defineProps({
+defineProps({
   title: {
     type: String,
-    default: "Interesting button",
+    default: 'Interesting button',
+    required: true,
   },
   showAddTask: Boolean,
 });
 
-const emit = defineEmits(["toggle-add-task"]);
+defineEmits(['toggle-add-task']);
 </script>
 
 <template>

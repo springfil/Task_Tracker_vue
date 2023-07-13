@@ -1,73 +1,73 @@
 <script setup>
-import MyHeader from "./components/Header";
-import MyTasks from "./components/Tasks";
-import MyAddTask from "./components/AddTask";
-import { ref, onMounted } from "vue";
+import MyHeader from './components/Header';
+import MyTasks from './components/Tasks';
+import MyAddTask from './components/AddTask';
+import { ref, onMounted } from 'vue';
 
 const tasks = ref([]);
+const showAddTask = ref(false);
 
 async function fetchTasks() {
-  const res = await fetch("api/tasks");
+  const res = await fetch('api/tasks');
   const data = await res.json();
+
   return data;
 }
 
 onMounted(async () => {
   tasks.value = await fetchTasks();
-  // await fetchTask();
 });
 
 async function fetchTask(id) {
   const res = await fetch(`api/tasks/${id}`);
   const data = await res.json();
-  console.log(data);
+
   return data;
 }
-
-const showAddTask = ref(false);
 
 function toggleAddTask() {
   showAddTask.value = !showAddTask.value;
 }
 
 async function addTask(task) {
-  const res = await fetch("api/tasks", {
-    method: "POST",
+  const res = await fetch('api/tasks', {
+    method: 'POST',
     headers: {
-      "Content-type": "application/json",
+      'Content-type': 'application/json',
     },
     body: JSON.stringify(task),
   });
+
   const data = await res.json();
   tasks.value.push(data);
 }
 
 async function deleteTask(id) {
-  const res = await fetch(`api/tasks/${id}`, {
-    method: "DELETE",
+  const response = await fetch(`api/tasks/${id}`, {
+    method: 'DELETE',
   });
-  res.status === 200
+  response.status === 200
     ? (tasks.value = tasks.value.filter((task) => task.id !== id))
-    : alert("Error deleting");
+    : alert('Error deleting');
 }
 
 async function toggleReminder(id) {
   const taskToToggle = await fetchTask(id);
-  const updateTask = { ...taskToToggle, reminder: !taskToToggle.reminder };
+
+  taskToToggle.reminder = !taskToToggle.reminder;
 
   const res = await fetch(`api/tasks/${id}`, {
-    method: "PUT",
+    method: 'PUT',
     headers: {
-      "Content-type": "application/json",
+      'Content-type': 'application/json',
     },
-    body: JSON.stringify(updateTask),
+    body: JSON.stringify(taskToToggle),
   });
 
   const data = await res.json();
 
-  tasks.value = tasks.value.map((task) =>
-    task.id === id ? { ...task, reminder: data.reminder } : task
-  );
+  let index = tasks.value.findIndex((task) => task.id === id);
+  tasks.value[index] = taskToToggle;
 }
 </script>
 
@@ -75,12 +75,12 @@ async function toggleReminder(id) {
   <div class="container">
     <my-header
       @toggle-add-task="toggleAddTask"
-      title="Трекер Задач"
+      title="Task manager"
       :showAddTask="showAddTask"
     />
-    <div v-show="showAddTask">
-      <my-add-task @add-task="addTask" />
-    </div>
+
+    <my-add-task v-show="showAddTask" @add-task="addTask" />
+
     <my-tasks
       @toggle-reminder="toggleReminder"
       @delete-task="deleteTask"
@@ -90,7 +90,7 @@ async function toggleReminder(id) {
 </template>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
 
 * {
   box-sizing: border-box;
@@ -99,7 +99,7 @@ async function toggleReminder(id) {
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 .container {
