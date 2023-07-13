@@ -1,22 +1,10 @@
 {
   "tasks": [
     {
-      "text": "глянуть Pinia ",
-      "day": "11.07 20:20",
+      "text": "говно",
+      "day": "2023-07-13T15:34",
       "reminder": true,
       "id": 1
-    },
-    {
-      "text": "asd",
-      "day": "asd",
-      "reminder": true,
-      "id": 2
-    },
-    {
-      "text": "asdas",
-      "day": "dasd",
-      "reminder": false,
-      "id": 3
     }
   ]
 }

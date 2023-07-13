@@ -1,17 +1,17 @@
 <script setup>
-import { ref } from "vue";
+import { ref } from 'vue';
 
-const text = ref("");
-const day = ref("");
+const text = ref('');
+const day = ref('');
 const reminder = ref(false);
 
-const emit = defineEmits(["add-task"]);
+const emit = defineEmits(['add-task']);
 
 const onSubmit = (e) => {
   e.preventDefault();
 
   if (!text.value) {
-    alert("Пожалуйста добавьте задание");
+    alert('Пожалуйста добавьте задание');
     return;
   }
 
@@ -21,10 +21,10 @@ const onSubmit = (e) => {
     reminder: reminder.value,
   };
 
-  emit("add-task", newTask);
+  emit('add-task', newTask);
 
-  text.value = "";
-  day.value = "";
+  text.value = '';
+  day.value = '';
   reminder.value = false;
 };
 </script>
@@ -42,7 +42,12 @@ const onSubmit = (e) => {
     </div>
     <div class="form-control">
       <label>День & Время</label>
-      <input type="text" v-model="day" name="day" placeholder="Введите дату" />
+      <input
+        type="datetime-local"
+        v-model="day"
+        name="day"
+        placeholder="Введите дату"
+      />
     </div>
     <div class="form-control form-control-check">
       <label>Установить напоминание</label>

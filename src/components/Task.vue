@@ -1,16 +1,15 @@
 <script setup>
-const props = defineProps({
+defineProps({
   task: Object,
 });
-
-const emit = defineEmits(["toggle-reminder", "delete-task"]);
+const emit = defineEmits(['toggle-reminder', 'delete-task']);
 
 const handleDelete = (id) => {
-  emit("delete-task", id);
+  emit('delete-task', id);
 };
 
 const handleToggleReminder = (id) => {
-  emit("toggle-reminder", id);
+  emit('toggle-reminder', id);
 };
 </script>
 
