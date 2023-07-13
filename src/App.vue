@@ -53,11 +53,7 @@ async function deleteTask(id) {
 
 async function toggleReminder(id) {
   const taskToToggle = await fetchTask(id);
-  console.log(
-    '🚀 ~ file: App.vue:58 ~ toggleReminder ~ taskToToggle:',
-    taskToToggle
-  );
-  // const updateTask = { ...taskToToggle, reminder: !taskToToggle.reminder };
+
   taskToToggle.reminder = !taskToToggle.reminder;
 
   const res = await fetch(`api/tasks/${id}`, {
@@ -69,11 +65,7 @@ async function toggleReminder(id) {
   });
 
   const data = await res.json();
-  console.log('🚀 ~ file: App.vue:72 ~ toggleReminder ~ a:', data);
 
-  // tasks.value = tasks.value.map((task) =>
-  //   task.id === id ? { ...task, reminder: data.reminder } : task
-  // );
   let index = tasks.value.findIndex((task) => task.id === id);
   tasks.value[index] = taskToToggle;
 }
