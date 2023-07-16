@@ -1,6 +1,6 @@
 <script setup>
-import MyHeader from './components/Header';
-import MyTasks from './components/Tasks';
+import MyHeader from './components/MyHeader';
+import MyTasks from './components/MyTasks';
 import MyAddTask from './components/AddTask';
 import { ref, onMounted } from 'vue';
 
@@ -64,7 +64,7 @@ async function toggleReminder(id) {
     body: JSON.stringify(taskToToggle),
   });
 
-  const data = await res.json();
+  // const data = await res.json();
 
   let index = tasks.value.findIndex((task) => task.id === id);
   tasks.value[index] = taskToToggle;

@@ -1,5 +1,5 @@
 <script setup>
-import Button from './Button';
+import MyButton from './MyButton';
 
 defineProps({
   title: {
@@ -16,7 +16,7 @@ defineEmits(['toggle-add-task']);
 <template>
   <header>
     <h1>{{ title }}</h1>
-    <Button
+    <my-button
       @btn-click="$emit('toggle-add-task')"
       :text="showAddTask ? 'Свернуть' : 'Добавить'"
       color="purple"

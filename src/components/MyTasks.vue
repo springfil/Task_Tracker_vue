@@ -1,5 +1,5 @@
 <script setup>
-import Task from './Task';
+import MyTask from './MyTask';
 
 defineProps({
   tasks: Array,
@@ -18,7 +18,7 @@ const handleDeleteTask = (id) => {
 
 <template>
   <div :key="task.id" v-for="task in tasks">
-    <Task
+    <my-task
       @toggle-reminder="handleToggleReminder(task.id)"
       @delete-task="handleDeleteTask(task.id)"
       :task="task"
