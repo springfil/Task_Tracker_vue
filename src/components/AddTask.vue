@@ -17,7 +17,7 @@ const onSubmit = (e) => {
 
   const newTask = {
     text: text.value,
-    day: day.value,
+    day: day.value.split("T").join(' '),
     reminder: reminder.value,
   };
 
